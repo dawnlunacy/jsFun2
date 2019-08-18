@@ -24,21 +24,30 @@ const kittyPrompts = {
     
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.filter((kitten) => kitten.color === 'orange'
+    ).map((kitten) => kitten.name);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    //filter the array for orange kittens
+    //if the color is orange then return that kitten
+
+    // filter will return the entire instance that is true for that instance
+
+    // so we need to map through the array of instances and return just the name of each. 
   },
 
   sortByAge() {
     // Sort the kitties by their age
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.sort((a,b) => {
+      return b.age - a.age;
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // need to organize the kittens array from oldest to youngest
+    // use sort 
   },
 
   growUp() {
@@ -55,9 +64,16 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = kitties.map((kitten) => {
+      kitten.age += 2;
+      return kitten;
+    });
     return result;
   }
+
+  // all kitties need to age by 2 years. We want an array the same length as original so we can use map. 
+  // for each instance add 2 to the age property
+  //be sure to return the entire isntance, not just the age
 };
 
 
@@ -87,11 +103,24 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = clubs.reduce((acc, curr) => {
+      curr.members.forEach(member => {
+        if (!acc[member]) {
+          acc[member] = [curr.club];
+        } else {
+          acc[member].push(curr.club);
+        }
+      });
+      return acc;
+    }, {});
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // We want to create on object so reduce
+    //make a key out of each members name (will need to drill down to members using dot notation) 
+    // the forEach if there is not a key make one
+    // when creating the member name as a key assign it to empty array
+    //else push the club into their key;
   }
 };
 
