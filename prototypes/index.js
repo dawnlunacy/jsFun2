@@ -152,11 +152,17 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [];
+    let makeObj = mods.forEach((module) => {
+      result.push({mod:module.mod, studentsPerInstructor:module.students / module.instructors});
+    });
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Iterate through the array and each instance push the mod assigned to the module number and 
+    // make a key of studetsPerInstructor and assign it to the students/instructors
+    // push that object into the array
+
   }
 };
 
@@ -187,11 +193,18 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [];
+    let cakeObj = cakes.forEach((cake) => {
+      result.push({flavor: cake.cakeFlavor, inStock: cake.inStock});
+    });
+
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Set a variable to an empty array
+    // Go through each cake in the array using forEach
+    // for each cake push an object with a key of flavor assigned to cake.cakeFlavor
+    // key of inStock assigned to cake.inStock 
   },
 
   onlyInStock() {
@@ -215,7 +228,9 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.filter((cake) => {
+      return cake.inStock > 0;
+    });
     return result;
 
     // Annotation:
@@ -226,11 +241,15 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((acc, curr) => {
+      acc += curr.inStock;
+      return acc;
+    }, 0);
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    // Because we want one single number return reduce is what first comes to mind
+    //for each cake we need to accumulator to add up the cakes inStock
   },
 
   allToppings() {
@@ -238,7 +257,14 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    
+    let toppings = cakes.reduce((acc, curr) => {
+      curr.toppings.forEach((topping) => {
+        acc.push(topping);
+      })
+      return acc;
+    }, []);
+    const result = [...new Set(toppings)];
     return result;
 
     // Annotation:
@@ -256,7 +282,16 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = {};
+    let organizeList = cakes.forEach((cake) => {
+      cake.toppings.forEach((topping) => {
+        if(!result[topping]) {
+          result[topping] = 1;
+        } else {
+          result[topping] += 1;
+        }
+      });
+    });
     return result;
 
     // Annotation:
